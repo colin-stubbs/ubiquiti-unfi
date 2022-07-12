@@ -3,6 +3,8 @@
 SWITCH_SUBINT=1
 IDS_PORT="eth4"
 
+echo "Mirroring traffic from switch0.${SWITCH_SUBINT} to ${IDS_PORT}"
+
 # setup monitoring of the internal network via switch subinterface, e.g. switch0.1
 tc -s qdisc ls dev switch0.${SWITCH_SUBINT} 1>/dev/null 2>&1 || tc qdisc add dev switch0.${SWITCH_SUBINT} handle ffff: ingress
 # tc -s qdisc ls dev switch0.${SWITCH_SUBINT}
