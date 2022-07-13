@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  elastic-agent:
+    image: docker.elastic.co/beats/elastic-agent:${ELASTIC_VERSION:-8.3.2}
+    container_name: elastic-agent
+
+    hostname: ${HOSTNAME:-UDM-SE}
+    restart: always
+    user: ${USER:-root}
+    environment:
+      - HOSTNAME=${HOSTNAME:-UDM-SE}
+      - FLEET_ENROLLMENT_TOKEN=${FLEET_ENROLLMENT_TOKEN:-}
+      - FLEET_ENROLL=${FLEET_ENROLL:-}
+      - FLEET_URL=${FLEET_URL:-}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /volume1/elastic-agent/data/:/data/
+      - /volume1/elastic-agent/state/:/usr/share/elastic-agent/state/
+      - /proc:/hostfs/proc:ro
+      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+      - /var/log:/hostfs/log:ro
